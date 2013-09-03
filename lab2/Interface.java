@@ -1,3 +1,41 @@
+//------------------------------>Interface  Program<----------------------------------+
+//                                                                                    !
+//  NAME:      Nathaniel Thompson                                                     !
+//  CLASS:     CMP_SC 3330 - Object Oriented Programing                               ! 
+//  PROFESSOR: Dean Zeller (Lab A - 8:00, TA )                                        !
+//  TERM:      Fall, 2013                                                             !
+//  PROJECT:   Assignment 2 -- Statistics                                             !
+//  FILENAME:  Interface.java                                                         !
+//                                                                                    !
+//  OVERALL PURPOSE                                                                   !
+//  The purpose of file is to set up an interface for the Stats.java objects          !
+//  and test them appropriatly                                                        ! 
+//                                                                                    !
+//  LIBRARIES AND EXTERNAL FILES                                                      !
+//    External file   Stats.java                                                      !
+//    Functions:      adNums -- inserts the values given into the array               !
+//                    printNums -- prints the values on the array                     !
+//                    getSum -- returns the sum of the elemnts of the array           !
+//                    getAvg -- returns the avg of the elements of the array          !
+//                    calcSum -- calculates the sum of the elements of the array      !
+//                    calcAvg -- calculates the average of the elements of the array  !
+//                    calcMin -- calculates the smallest element in the array         !
+//                    calcMax -- calculates the largest element in the array          !
+//                                                                                    !
+//  METHOD                                                                            !
+//    Step 1 - Initialize objects and variables                                       !
+//    Step 2 - use a while loop to collect the size of the array from the user        !
+//    Step 3 - Send array size to Stats class and create an array of the correct size !
+//    Step 4 - Read input from reader, convert to double values                       !
+//    Step 5 - pass array to loadNums, run calcSum, run calcAvgm run calcMin,         !
+//             run calcMax                                                            !
+//    Step 6 print results                                                            !
+//                                                                                    !
+//                                                                                    !
+//  CREDITS                                                                           !
+//    All code written by Nathaniel Thompson.                                         !
+//                                                                                    !
+//------------------------------------------------------------------------------------+
 import java.io.*;
 
 public class Interface
