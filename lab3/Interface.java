@@ -112,7 +112,7 @@ public class Interface
         case 'M': a.calcMed();
                   System.out.format("Median: %f",a.getMed());
                   break;
-        //case 'I'   
+        //case 'I'  .   
 
         case 'Q': flag=true;
                   System.exit(1);
