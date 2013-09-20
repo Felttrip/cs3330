@@ -112,8 +112,10 @@ public class Interface
         case 'M': a.calcMed();
                   System.out.format("Median: %f",a.getMed());
                   break;
-        //case 'I'  .   
-
+        case 'I': a.mergeSort();
+                  System.out.println("Sort increasing order");
+                  a.printNums();
+                  break;               
         case 'Q': flag=true;
                   System.exit(1);
                   break;

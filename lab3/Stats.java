@@ -152,24 +152,25 @@ public class Stats
     //Needed variables for merge sort
     int mid;
     
-    if(data[first]<data[last])
+    if(first<last)
     {
       mid=(first+last)/2;
       mergeSort(first,mid);
       mergeSort(mid+1,last);
+      merge(first,mid,last);
       
     }
   }
   //used to call the mergeSort from the Interface class, sorts entire array
   public void mergeSort()
   {
-    this.mergeSort(0,arrPos);
+    this.mergeSort(0,arrPos-1);
   }
   
   //merge method for use in mergeSort
   private void merge(int low, int mid, int high)
   {
-    temp = new double[arrPos];
+    temp = new double[arrPos+i];
     for (int i=low; i<=high; i++) 
     {
       temp[i] = data[i];
