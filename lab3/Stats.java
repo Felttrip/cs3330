@@ -4,12 +4,12 @@
 //  CLASS:     CMP_SC 3330 - Object Oriented Programing                     !
 //  PROFESSOR: Dean Zeller (Lab A - 8:00, TA Michael Bruch)                 !
 //  TERM:      Fall, 2013                                                   !
-//  PROJECT:   Assignment 1 -- Hello World                                  !
-//  FILENAME:  Hello.java                                                   !
+//  PROJECT:   Assignment 3 -- Menu Interface                               !
+//  FILENAME:  Stats.java                                                   !
 //                                                                          !
 //  OVERALL PURPOSE                                                         !
-//  The purpose of this object is to calculate the sum, average, min,       !
-//  and max of a set of numbers.                                            !
+//  The purpose of this object is to do various statistical calculations    !
+//  defined in the methods portion                                          !
 //                                                                          !
 //  LIBRARIES AND EXTERNAL FUNCTIONS                                        !
 //    None                                                                  !
@@ -22,11 +22,17 @@
 //    printNums -- prints the values on the array                           !
 //    getSum -- returns the sum of the elemnts of the array                 !
 //    getAvg -- returns the avg of the elements of the array                !
+//    getMin -- returns the minimum value in the array                      !
+//    getMax -- returns the maximum value in the array                      !
+//    getMed -- returns the median value in the array                       !
+//    getRemaining -- returns the number of indices left in the array       !
 //    calcSum -- calculates the sum of the elements of the array            !
 //    calcAvg -- calculates the average of the elements of the array        !
 //    calcMin -- calculates the smallest element in the array               !
 //    calcMax -- calculates the largest element in the array                !
-//    mergeSort -- Sorts the array form lowest to highest                   !
+//    calcMed -- calculates the median value in the array                   !
+//    mergeSort -- Sorts the array form lowest to highest or vice versa if  !
+//                 flag is used                                             !
 //    merge -- used in the merger sort                                      !
 //    median -- used to find the median value                               !
 //                                                                          !
@@ -39,7 +45,7 @@ public class Stats
 {
   //variables accesable by all methods
   private double data[],temp[], sum, avg, min, max, med;
-  private int arraySize, i,k,arrPos, remain;
+  private int arraySize, i,arrPos, remain;
   public String tab; //experimenting with public variables
   
   //Stats constructor
@@ -51,7 +57,7 @@ public class Stats
     avg=0.0;
     med=0.0;
     tab="     ";
-    remain=0;
+    remain=10;
     arrPos=0;
   }
   
@@ -71,11 +77,19 @@ public class Stats
   }
 
   //loadNums method for single numbers
-  public void loadNums(double num)
+  public boolean loadNums(double num)
   {
-     data[arrPos]=num;
-     arrPos++;
-     remain=arraySize-arrPos;// remining spaces left in the array
+     if(remain>0)//make sure array isn't full
+     {
+       data[arrPos]=num;
+       arrPos++;
+       remain=arraySize-arrPos;// remining spaces left in the array
+       return true;
+     }
+     else//return false if array is full
+     {
+       return false;
+     }
     
   }
   
@@ -84,12 +98,12 @@ public class Stats
   {
     System.out.printf("Array: ");
     
-    if(arrPos==0)
+    if(arrPos==0)//check for empty array
     {
       System.out.printf(  "<data array is empty>");
       return;
     }
-    for(i=0; i<arrPos; i++)
+    for(i=0; i<arrPos; i++)//iterate through array
     {
       if(i==arraySize-1)
         System.out.println( data[i] );
@@ -98,7 +112,7 @@ public class Stats
     }
   }
 
-  //getSum and getAvg methods
+  //getSum, getAvg, getMin, getMax, getMed, getRemaining methods
   public double getSum() {return sum;}
   public double getAvg() {return avg;}
   public double getMin() {return min;}
@@ -149,16 +163,15 @@ public class Stats
   //mergeSort method
   private void mergeSort(int first, int last)
   {
-    //Needed variables for merge sort
+    //Needed variable for merge sort
     int mid;
     
-    if(first<last)
+    if(first<last)//break down ito smaller pieces
     {
       mid=(first+last)/2;
       mergeSort(first,mid);
       mergeSort(mid+1,last);
       merge(first,mid,last);
-      
     }
   }
   //used to call the mergeSort from the Interface class, sorts entire array
@@ -169,11 +182,11 @@ public class Stats
   //used when merge sort is called with a flag for decreasing sort
   public void mergeSort(int flag)
   {
-    double swap=0.0;
-    mergeSort(0,arrPos-1);
-    if(flag==-1)
+    double swap=0.0; //swap used forreversing order
+    mergeSort(0,arrPos-1); //run merge sort
+    if(flag==-1) //catch flag
     {
-      for(i=0;i<arrPos/2;i++)
+      for(i=0;i<arrPos/2;i++) //reverse order
       {
         swap=data[i];
         data[i]=data[arrPos-i-1];
@@ -185,8 +198,8 @@ public class Stats
   //merge method for use in mergeSort
   private void merge(int low, int mid, int high)
   {
-    temp = new double[arrPos+i];
-    for (int i=low; i<=high; i++) 
+    temp = new double[arrPos+i]; //temp array
+    for (int i=low; i<=high; i++) //fill temp with data
     {
       temp[i] = data[i];
     }
@@ -195,7 +208,7 @@ public class Stats
     int j = mid + 1;
     int k = low;
 
-    while (i <= mid && j <= high) 
+    while (i <= mid && j <= high) //iterate through the indices the array placing the values in the correct order
     {
       if (temp[i] <= temp[j]) 
       {
@@ -221,7 +234,7 @@ public class Stats
   //median method
   public void calcMed()
   {
-    mergeSort();
+    mergeSort(); //sort first
     //check for odd or even conditions
     if(arrPos%2!=0)
     {
