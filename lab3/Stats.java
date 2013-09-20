@@ -39,7 +39,7 @@ public class Stats
 {
   //variables accesable by all methods
   private double data[],temp[], sum, avg, min, max, med;
-  private int arraySize, i,arrPos, remain;
+  private int arraySize, i,k,arrPos, remain;
   public String tab; //experimenting with public variables
   
   //Stats constructor
@@ -166,6 +166,21 @@ public class Stats
   {
     this.mergeSort(0,arrPos-1);
   }
+  //used when merge sort is called with a flag for decreasing sort
+  public void mergeSort(int flag)
+  {
+    double swap=0.0;
+    mergeSort(0,arrPos-1);
+    if(flag==-1)
+    {
+      for(i=0;i<arrPos/2;i++)
+      {
+        swap=data[i];
+        data[i]=data[arrPos-i-1];
+        data[arrPos-i-1]=swap;
+      }
+    }
+  }
   
   //merge method for use in mergeSort
   private void merge(int low, int mid, int high)
@@ -214,7 +229,7 @@ public class Stats
     }
     else
     {
-      med=(data[arrPos/2]+data[(arrPos/2)+1])/2;
+      med=(data[arrPos/2]+data[(arrPos/2)-1])/2;
     }
   }
 

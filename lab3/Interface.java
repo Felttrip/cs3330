@@ -70,7 +70,6 @@ public class Interface
       System.out.printf("\n=> ");
       input = readChar();//collect the input
       input = Character.toUpperCase(input);//put charater in upper case
-    
       switch(input)//check input
       {
         case 'N': pass=false;
@@ -115,11 +114,15 @@ public class Interface
         case 'I': a.mergeSort();
                   System.out.println("Sort increasing order");
                   a.printNums();
-                  break;               
+                  break;
+        case 'D': a.mergeSort(-1);
+                  System.out.println("Sort decreasing order");
+                  a.printNums();
+                  break;
+        case '?': printMenu();
+                  break;            
         case 'Q': flag=true;
                   System.exit(1);
-                  break;
-        case 'a': System.out.println("thats an a yes it is");
                   break;
         default:  System.out.println("Command not found\nEnter ? for a list of commands");
                   break;
@@ -144,6 +147,10 @@ public class Interface
       {
         System.out.println("IO error trying to read number. Exiting now");
         System.exit(1);
+      }
+      if(uInput.charAt(0)=='?')//special case for ? symbol
+      {
+        return uInput.charAt(0);
       }
       if(!Character.isLetter(uInput.charAt(0)))//check for charater
       {
