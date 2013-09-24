@@ -1,36 +1,30 @@
 //------------------------------>Interface  Program<----------------------------------+
-////                                                                                    !
-////  NAME:      Nathaniel Thompson                                                     !
-////  CLASS:     CMP_SC 3330 - Object Oriented Programing                               ! 
-////  PROFESSOR: Dean Zeller (Lab A - 8:00, TA )                                        !
-////  TERM:      Fall, 2013                                                             !
-////  PROJECT:   Assignment 2 -- Statistics                                             !
-////  FILENAME:  Interface.java                                                         !
-////                                                                                    !
+//                                                                                    !
+//  NAME:      Nathaniel Thompson                                                     !
+//  CLASS:     CMP_SC 3330 - Object Oriented Programing                               ! 
+//  PROFESSOR: Dean Zeller (Lab A - 8:00, TA )                                        !
+//  TERM:      Fall, 2013                                                             !
+//  PROJECT:   Assignment 3 -- Menu Interface                                         !
+//  FILENAME:  Interface.java                                                         !
+//                                                                                    !
 //  OVERALL PURPOSE                                                                   !
-//  The purpose of file is to set up an interface for the Stats.java objects          !
-//  and test them appropriatly                                                        ! 
+//  The purpose of file is to set up an interface for the Stats.java objects with a   !
+//  menu driven interface.                                                            ! 
 //                                                                                    !
 //  LIBRARIES AND EXTERNAL FILES                                                      !
-//    External file   Stats.java                                                      !
-//    Functions:      adNums -- inserts the values given into the array               !
-//                    printNums -- prints the values on the array                     !
-//                    getSum -- returns the sum of the elemnts of the array           !
-//                    getAvg -- returns the avg of the elements of the array          !
-//                    calcSum -- calculates the sum of the elements of the array      !
-//                    calcAvg -- calculates the average of the elements of the array  !
-//                    calcMin -- calculates the smallest element in the array         !
-//                    calcMax -- calculates the largest element in the array          !
+//    External file   Stats.java  Refer to Stats.java dcumentation for included       !
+//                                functions.                                          !
 //                                                                                    !
-//  METHOD                                                                            !
-//    Step 1 - Initialize objects and variables                                       !
-//    Step 2 - use a while loop to collect the size of the array from the user        !
-//    Step 3 - Send array size to Stats class and create an array of the correct size !
-//    Step 4 - Read input from reader, convert to double values                       !
-//    Step 5 - pass array to loadNums, run calcSum, run calcAvgm run calcMin,         !
-//             run calcMax                                                            !
-//    Step 6 print results                                                            !
-//                                                                                    !
+//  CONSTRUCTORS                                                                      !
+//    Interface(int size) -- creates a stats object of size 'size'                    !
+//    Interface() --creates a stats object of size 10                                 !
+//  METHODS                                                                           !
+//    menu -- controlls the menu driven interface.  Will call readChar and printMenu  !
+//            methods and call various methods of Stats object depending on user      !
+//            input                                                                   !
+//    readChar -- collects the user input as a string and parses it to return valid   !
+//                characters                                                          !
+//    printMenu -- prints the list of options the user can use                        !
 //                                                                                    !
 //  CREDITS                                                                           !
 //    All code written by Nathaniel Thompson.                                         !
@@ -58,30 +52,36 @@ public class Interface
   //Interface constructor for when no size is given
   public Interface()
   {
-    this(10);
+    this(10); //stats object of size 10
   }
 
   //menu method
   public void menu()
   {
-    printMenu(); 
+    printMenu(); //first menu print
     while(!flag)//flag is set true by q and Q allows progam to exit
     {
-      System.out.printf("\n=> ");
+      System.out.printf("\n=> "); //print input arrow
       input = readChar();//collect the input
       input = Character.toUpperCase(input);//put charater in upper case
       switch(input)//check input
       {
-        case 'N': pass=false;
+        case 'N': pass=false;  //case for adding number to the array
                   while(!pass)
 	  	  {
                    try//collect a number to put in the array
   		   {
                       System.out.printf("Number: Enter a Number =>  ");
                       numInput = br.readLine();
-                      a.loadNums(Double.parseDouble(numInput));
-		      pass=true;
-                      System.out.format("%s entered into the array\nThere are %d slots remaining in the data array",numInput,a.getRemaining());
+                      if(a.loadNums(Double.parseDouble(numInput)))//will return false if array is full
+		      {
+                        System.out.format("%s entered into the array\nThere are %d slots remaining in the data array",numInput,a.getRemaining());
+                      }
+                      else
+                      {
+                        System.out.println("Array is full, please restart to create a fresh array");
+                      }
+                      pass=true;//no errors thrown exit while loop
 		    }
 		    catch(NumberFormatException x)//catch a number format exception
 		    {
@@ -94,42 +94,40 @@ public class Interface
                     }
 		  }
                   break;
-        case 'P': a.printNums();
-                  break; 
-        case 'S': a.calcSum();
+        case 'P': a.printNums();  //case to print the numbers in the array
+                  break;            
+        case 'S': a.calcSum();    //case to calculate the sum
                   System.out.format("Sum: %f",a.getSum());
                   break;
-        case 'A': a.calcAvg();
+        case 'A': a.calcAvg();    //case to calculate the average
                   System.out.format("Average: %f",a.getAvg());
                   break;
-        case 'L': a.calcMin();
+        case 'L': a.calcMin();    //case to calculate the min value
                   System.out.format("Minimum: %f",a.getMin());
                   break;
-        case 'H': a.calcMax();
+        case 'H': a.calcMax();    //case to calculate the max value
                   System.out.format("Maximum: %f",a.getMax());
                   break;
-        case 'M': a.calcMed();
+        case 'M': a.calcMed();    //case to calcualte the median
                   System.out.format("Median: %f",a.getMed());
                   break;
-        case 'I': a.mergeSort();
+        case 'I': a.mergeSort();  //case to sort in increading order
                   System.out.println("Sort increasing order");
                   a.printNums();
                   break;
-        case 'D': a.mergeSort(-1);
+        case 'D': a.mergeSort(-1);//case to sort in decreaing order, flag is used
                   System.out.println("Sort decreasing order");
                   a.printNums();
                   break;
-        case '?': printMenu();
+        case '?': printMenu();    //case to reprint menu
                   break;            
-        case 'Q': flag=true;
+        case 'Q': flag=true;      //case to quit
                   System.exit(1);
                   break;
-        default:  System.out.println("Command not found\nEnter ? for a list of commands");
+        default:  System.out.println("Command not found\nEnter ? for a list of commands"); //default command not found
                   break;
       }
     }
-    System.exit(1);
-    System.out.println("what!");
   }
 
   //character collecting and parsing function
@@ -143,7 +141,7 @@ public class Interface
       {
         uInput = br.readLine();
       }
-      catch(IOException ioe)
+      catch(IOException ioe)//catch IOE
       {
         System.out.println("IO error trying to read number. Exiting now");
         System.exit(1);
@@ -155,9 +153,11 @@ public class Interface
       if(!Character.isLetter(uInput.charAt(0)))//check for charater
       {
         System.out.println("Invalid input, use ? for a list of commands");
+        System.out.printf("=> ");
       }
     }
     while(!Character.isLetter(uInput.charAt(0)));
+
     return uInput.charAt(0);//return character input
     
   }
@@ -165,6 +165,7 @@ public class Interface
   //menu printing function
   private void printMenu()
   {
+    //premade strings for ease of formating
     String nText = "Add a number to the data array";
     String pText = "Display all numbers on a line";
     String sText = "Calculate and display the sum of the numbers";
@@ -176,7 +177,7 @@ public class Interface
     String dText = "Sort the numbers in decreasing order";
     String helpText = "Display this Menu";
     String qText = "Exit the program";
-
+    //formated menu
     System.out.format("Comands Available:\n%-15s %s","  (N)umber",nText);
     System.out.format("\n%-15s %s","  (P)rint",pText);
     System.out.format("\n%-15s %s","  (S)um",sText);
