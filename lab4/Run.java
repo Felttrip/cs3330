@@ -36,7 +36,11 @@ public class Run
     
     String fInput = null;
     char input = 'a';
+    int size = 10;
+    boolean pass = false;
     System.out.println("Welcome to Nate's Statistics Program");
+
+    //check for file
     System.out.println("Would you like to read from a file? <Y/n>");
     Interface a = null; 
     do//find out if reading from a file or not
@@ -52,7 +56,7 @@ public class Run
     if(input=='Y'||input=='y')//using an array
     {
       System.out.println("What is the filename?");
-      try
+      try//collect filename
       {
         fInput = br.readLine();
       }
@@ -61,11 +65,11 @@ public class Run
         System.out.println("IO Exception Error, quitting");
         System.exit(1);
       }
-      try
+      try  //create a new Interface object passing the filename
       {
         a = new Interface(fInput);
       }
-      catch(FileNotFoundException err)
+      catch(FileNotFoundException err) //if file isnopt found, quit
       {
         System.out.println("File not found, quitting now.");
         System.exit(1);
@@ -74,17 +78,50 @@ public class Run
 
     else if(input=='N'||input=='n')//no array
     {
-      System.out.println("You have 10 slots remaining in the array");
-      a = new Interface(10);
+      System.out.println("How big would you like the array to be?"); //collect size of array
+      while(!pass || size<1) //wait for pass condition and correwct array size
+      {
+        try
+        {
+          fInput=br.readLine();
+          if(fInput.equals("")) //user just hits enter
+          {
+            pass=true;
+          }
+          else if(size<=0) //user puts in wrong array size 
+          {
+            System.out.println("Please use an array size > 0");
+          }
+          else  //everything else is good parse size
+          {
+            size = Integer.parseInt(fInput);
+          }
+          pass=true;
+        }
+        catch(IOException err)
+        {
+          System.out.println("Input Output Error, exiting now");
+          System.exit(1);
+        }
+        catch(NumberFormatException Nerr)
+        {
+          System.out.println("Error, expecting type int, please enter an integer.");
+        }
+      }
+
+      System.out.format("You have %d slots remaining in the array",size); //let user know how large array is
+      a = new Interface(size); //create a new Interface using size, size default == 10
     }
-    else
+    else //if for some reason program reaches this else, a condition was not covered and we should quit
     {
       System.out.println("error, quitting");
       System.exit(1);
     }
-    //step 2
+
+    //open the menu and begin bulk of program
     a.menu();
-    //step 3
+    
+    //exit when done
     System.exit(0);
   }
 
@@ -106,7 +143,7 @@ public class Run
       }
       if(!Character.isLetter(uInput.charAt(0)))//check for charater
       {
-        System.out.println("1 Invalid input please use Y or n");
+        System.out.println(" Invalid input please use Y or n");
       }
     }
     while(!Character.isLetter(uInput.charAt(0)));

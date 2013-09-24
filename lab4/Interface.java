@@ -81,7 +81,7 @@ public class Interface
     //read input 
     for(int i = 0; i < arraySize; i++)
     {  
-      array[i] = b.nextInt();
+      array[i] = b.nextDouble();
     }
     //create a stats object of the proper size
     a = new Stats(arraySize);
@@ -158,6 +158,8 @@ public class Interface
         case 'T': a.calcStd();
                   System.out.format("Standard Deviation: %f",a.getStd());
                   break;
+        case 'R': readIn(getFileName());
+                  break;                  
         case 'W': writeOut();
                   break;
         case '?': printMenu();    //case to reprint menu
@@ -203,33 +205,79 @@ public class Interface
     
   }
 
+  private void readIn(String filename) 
+  {
+    //open file
+    File f = new File(filename);
+    Scanner b = null;
+    String temp = null;
+    try{b = new Scanner(f);}
+    catch(FileNotFoundException FNFe){System.out.println("Error, file not found.");}
+    //read input
+    while(b.hasNextLine())
+    {
+      temp=b.nextLine();
+      a.loadNums(Double.parseDouble(temp));
+    }
+    return;
+   
+  }
+  private String getFileName()
+  {
+    String filename = null;
+    System.out.println("What is the name of the file?");
+    try{ filename = br.readLine();}
+    catch(IOException e){System.out.println("IOE error");}
+    return filename;
+  }
+
   private void writeOut()
   {
+    //gather filename
     String fName=null;
     System.out.println("What would you like the output file to be named?");
-    fName=br.readLine;
+    try{ fName=br.readLine();}
+    catch(IOException err){System.out.println("Error collecting filename");}
     File file = new File(fName);
-    double[] content = array;
-
-	try
-        {
-          FileOutputStream fop = new FileOutputStream(file);
-	
-          if (!file.exists()) 
-	  {
-	    file.createNewFile();
-	  }
-          byte[] contentInBytes = content.getBytes();
-	  fop.write(contentInBytes);
-	  fop.flush();
-	  fop.close();
-	  System.out.println("Done");
-	} 
-        catch(IOException e)
-
-	{
-	    e.printStackTrace();
-	}
+    
+    //run all calculations
+    calcAll();
+    
+    String content = null;
+    content = "Sum = "+a.getSum()+"\nAverage = "+a.getAvg()+"\nMinimum = "+a.getMin()+"\nMaximum = "+a.getMax()+"\nMedian = "+a.getMed()+"\nVarience = "+a.getVar()+"\nStandard Deviation = "+a.getStd();
+    try
+    {
+      if(file.exists())
+      {
+        System.out.println("The specified file already exists");
+      }
+      else if(!file.exists()) 
+      {
+        FileOutputStream fop = new FileOutputStream(file);
+        file.createNewFile();
+        byte[] contentInBytes = content.getBytes();
+        fop.write(contentInBytes);
+        fop.flush();
+        fop.close();
+        System.out.println("File Written");
+      }
+    } 
+    catch(IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+  
+  //run all calculations
+  private void calcAll()
+  {
+    a.calcSum();
+    a.calcAvg();
+    a.calcMin();
+    a.calcMax();
+    a.calcMed();
+    a.calcVar();
+    a.calcStd();
   }
 
   //menu printing function
@@ -247,6 +295,8 @@ public class Interface
     String dText = "Sort the numbers in decreasing order";
     String vText = "Calculate and display the varience of the numbers";
     String stdText = "Calculate and display the standard deviation of the numbers";
+    String rText = "Read the input from a text file";
+    String wText = "Write the array to a text file";
     String helpText = "Display this Menu";
     String qText = "Exit the program";
     //formated menu
@@ -261,6 +311,8 @@ public class Interface
     System.out.format("\n%-22s %s"," s(T)andard Deviation",stdText);
     System.out.format("\n%-22s %s","  (I)ncreasing",iText);
     System.out.format("\n%-22s %s","  (D)ecreasing",dText);
+    System.out.format("\n%-22s %s","  (R)ead ",rText);
+    System.out.format("\n%-22s %s","  (W)rite",wText);
     System.out.format("\n%-22s %s","  (?) Help",helpText);
     System.out.format("\n%-22s %s","  (Q)uit",qText);
 
