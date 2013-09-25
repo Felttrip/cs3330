@@ -4,21 +4,27 @@
 //  CLASS:     CMP_SC 3330 - Object Oriented Programing                               ! 
 //  PROFESSOR: Dean Zeller (Lab A - 8:00, TA )                                        !
 //  TERM:      Fall, 2013                                                             !
-//  PROJECT:   Assignment 3 -- Menu Interface                                         !
+//  PROJECT:   Assignment 4 -- File IO                                                !
 //  FILENAME:  Run.java                                                               !
 //                                                                                    !
 //  OVERALL PURPOSE                                                                   !
-//    The purpose of file is to instanciate the infterface class and                  !
+//    The purpose of file is to instanciate the interface class and                   !
 //    run the menu method.                                                            !
 //                                                                                    !
 //  LIBRARIES AND EXTERNAL FILES                                                      !
 //    External file   Stats.java                                                      !
 //                    Interface.java                                                  !
 //    Libraries       java.io.*                                                       !
+//	FUNCTIONS                                                                         !
+//	  readChar -- handles reading a character form the user                           !
 //  METHOD                                                                            !
-//    Step 1 - Initialize the Interface object                                        !
-//    Step 2 - Run the menu method                                                    !
-//    Step 3 - Exit the program                                                       !
+//    Step 1 - Initialize variables                                                   !
+//    Step 2 - Check for file                                                         !
+//    Step 3 - open the menu by running a.menu                                        !
+//    Step 4 - Exit The program                                                       !
+//  EXTRA CREDIT                                                                      !
+//    Preprocessing is preformed on the file if the user wished to load an entire     !
+//    array at the begining of the program.                                           !                                                 !
 //                                                                                    !
 //  CREDITS                                                                           !
 //    All code written by Nathaniel Thompson.                                         !
@@ -32,15 +38,15 @@ public class Run
   
   public static void main(String[] args)
   {
+    //Step 1 Initialize variables
     BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
-    
     String fInput = null;
     char input = 'a';
     int size = 10;
     boolean pass = false;
     System.out.println("Welcome to Nate's Statistics Program");
 
-    //check for file
+    //Step 2 check for file
     System.out.println("Would you like to read from a file? <Y/n>");
     Interface a = null; 
     do//find out if reading from a file or not
@@ -53,7 +59,7 @@ public class Run
     }
     while(input!='Y'&&input!='y'&&input!='n'&&input!='N');
       
-    if(input=='Y'||input=='y')//using an array
+    if(input=='Y'||input=='y')//using a file
     {
       System.out.println("What is the filename?");
       try//collect filename
@@ -118,10 +124,10 @@ public class Run
       System.exit(1);
     }
 
-    //open the menu and begin bulk of program
+    //Step 3 open the menu and begin bulk of program
     a.menu();
     
-    //exit when done
+    //Step 4 exit when done
     System.exit(0);
   }
 

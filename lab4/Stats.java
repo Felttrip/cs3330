@@ -4,7 +4,7 @@
 //  CLASS:     CMP_SC 3330 - Object Oriented Programing                     !
 //  PROFESSOR: Dean Zeller (Lab A - 8:00, TA Michael Bruch)                 !
 //  TERM:      Fall, 2013                                                   !
-//  PROJECT:   Assignment 3 -- Menu Interface                               !
+//  PROJECT:   Assignment 4 -- File IO                               !
 //  FILENAME:  Stats.java                                                   !
 //                                                                          !
 //  OVERALL PURPOSE                                                         !
@@ -26,6 +26,10 @@
 //    getMax -- returns the maximum value in the array                      !
 //    getMed -- returns the median value in the array                       !
 //    getRemaining -- returns the number of indices left in the array       !
+//    getVar -- returns the varience of the values in the array             !
+//    getStd -- returns the Standard Deviation                              !
+//    calcVar -- calculates the varience of the elements in the array       !
+//    calcStd -- calculates the Standard Deviation                          !
 //    calcSum -- calculates the sum of the elements of the array            !
 //    calcAvg -- calculates the average of the elements of the array        !
 //    calcMin -- calculates the smallest element in the array               !
@@ -33,8 +37,7 @@
 //    calcMed -- calculates the median value in the array                   !
 //    mergeSort -- Sorts the array form lowest to highest or vice versa if  !
 //                 flag is used                                             !
-//    merge -- used in the merger sort                                      !
-//    median -- used to find the median value                               !
+//    merge -- used in the merge sort                                       !                            !
 //                                                                          !
 //  CREDITS                                                                 !
 //    All code written by Nathaniel Thompson.                               !
@@ -265,11 +268,11 @@ public class Stats
     var=(x/arrPos);
   }
 
-  //standard deviation\
+  //standard deviation
   public void calcStd()
   {
     calcVar();
     std=Math.sqrt(var);
   }
-
+  
 }

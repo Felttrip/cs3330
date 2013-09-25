@@ -4,7 +4,7 @@
 //  CLASS:     CMP_SC 3330 - Object Oriented Programing                               ! 
 //  PROFESSOR: Dean Zeller (Lab A - 8:00, TA )                                        !
 //  TERM:      Fall, 2013                                                             !
-//  PROJECT:   Assignment 3 -- Menu Interface                                         !
+//  PROJECT:   Assignment 4 -- File IO                                                !
 //  FILENAME:  Interface.java                                                         !
 //                                                                                    !
 //  OVERALL PURPOSE                                                                   !
@@ -30,6 +30,10 @@
 //    readChar -- collects the user input as a string and parses it to return valid   !
 //                characters                                                          !
 //    printMenu -- prints the list of options the user can use                        !
+//    readIn -- reads the data from the specified filename and puts it in the array   !
+//    writeOut -- Writes values from all of the listed functions to a file            !
+//    getFileName -- collects the filename from the user                              !
+//    calcAll -- runs all of the calc methods in the stat class                       !
 //                                                                                    !
 //  CREDITS                                                                           !
 //    All code written by Nathaniel Thompson.                                         !
